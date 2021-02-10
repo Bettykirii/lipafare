@@ -36,6 +36,14 @@ public class MockServiceBean implements MockService {
                     "sw"
             ),
             new CustomerMock(
+                    "254720942927",
+                    "Jedidah Wangeci",
+                    "56464",
+                    "CodeManager",
+                    "1122",
+                    "sw"
+            ),
+            new CustomerMock(
                     "254722111225",
                     "Amos Wachira",
                     "456546",

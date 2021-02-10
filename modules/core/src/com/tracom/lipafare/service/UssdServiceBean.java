@@ -1,8 +1,11 @@
 package com.tracom.lipafare.service;
 
+import com.haulmont.cuba.core.global.DataManager;
+import com.tracom.lipafare.entity.RegisterUsers;
 import com.tracom.lipafare.models.CustomerMock;
 import com.tracom.lipafare.models.ResponseWrapper;
 import org.json.JSONObject;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -17,9 +20,10 @@ public class UssdServiceBean implements UssdService {
 
     @Override
     public ResponseWrapper getRegistrationStatus(String phoneNumber) {
-        ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
-        wrapper.setData(mockService.getCustomerForPhoneNumber(phoneNumber));
-        return wrapper;
+        final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
+
+        final List<RegisterUsers> customers =
+
     }
 
     @Override
@@ -63,4 +67,6 @@ public class UssdServiceBean implements UssdService {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
         return wrapper;
     }
+
+
 }

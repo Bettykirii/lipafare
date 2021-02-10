@@ -20,11 +20,11 @@
             <param name="phoneNumber" type="java.lang.String"/>
             <param name="associationCode" type="java.lang.String"/>
         </method>
-        <method name="changePin">
+        <method name="changePin" anonymousAllowed="true">
             <param name="phoneNumber" type="java.lang.String"/>
             <param name="newPin" type="java.lang.String"/>
         </method>
-        <method name="changeLanguage">
+        <method name="changeLanguage" anonymousAllowed="true">
             <param name="phoneNumber" type="java.lang.String"/>
             <param name="newLocale" type="java.lang.String"/>
         </method>
