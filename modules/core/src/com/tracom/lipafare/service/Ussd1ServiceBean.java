@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Service(UssdService.NAME)
-public class UssdServiceBean implements UssdService {
+@Service(Ussd1Service.NAME)
+public class Ussd1ServiceBean implements Ussd1Service {
     @Inject
     private MockService mockService;
     @Inject
@@ -27,13 +27,41 @@ public class UssdServiceBean implements UssdService {
     public ResponseWrapper getRegistrationStatus(String phoneNumber) {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
 
-        wrapper.setData(mockService.getCustomerForPhoneNumber(phoneNumber));
-        return wrapper;
+    final List<RegisterUsers> users = (List<RegisterUsers>) dataManager.load(RegisterUsers.class)
+            .query("select e from lipafare_RegisterUsers e where e.id = :phoneNumber", RegisterUsers.class)
+            .parameter("phoneNumber", phoneNumber).list();
+        if (users.size() > 0)
+                wrapper.setData(users);
+        else {
+        RegisterUsers registerUsers = metadata.create(RegisterUsers.class);
+        registerUsers.setLocale("en");
+        registerUsers.setCustomerType(CustomerType.CODEOWNER);
+        registerUsers.setCustomerType(CustomerType.CODEMANAGER);
+        registerUsers.setCustomerType(CustomerType.PASSENGER);
+
+        dataManager.commit(registerUsers);
 
     }
+        return wrapper;
+}
+
+
     @Override
-    public ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale) {
+    public ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale ,String customerType , String pin) {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
+        wrapper.setMessage("Registered successfully");
+
+        final RegisterUsers users = metadata.create(RegisterUsers.class);
+        users.setPhoneNumber(phoneNumber);
+        users.setFirstName(firstName);
+        users.setOtherNames(otherNames);
+        users.setIdNumber(idNumber);
+        users.setLocale(locale);
+        users.setPin(pin);
+        users.setCustomerType(CustomerType.fromId(customerType));
+
+
+        dataManager.commit(users);
 
         return wrapper;
     }

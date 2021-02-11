@@ -18,6 +18,12 @@ public class RegisterUsers extends StandardEntity {
     @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;
 
+    @Column(name = "CUSTOMER_TYPE")
+    private String customerType;
+
+    @Column(name = "PIN")
+    private String pin;
+
     @NotNull
     @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
@@ -32,6 +38,22 @@ public class RegisterUsers extends StandardEntity {
 
     @Column(name = "LOCALE")
     private String locale;
+
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType == null ? null : customerType.getId();
+    }
+
+    public CustomerType getCustomerType() {
+        return customerType == null ? null : CustomerType.fromId(customerType);
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
 
     public String getLocale() {
         return locale;

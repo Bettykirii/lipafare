@@ -29,5 +29,33 @@
             <param name="newLocale" type="java.lang.String"/>
         </method>
     </service>
+    <service name="lipafare_Ussd1Service">
+        <method name="getRegistrationStatus"  anonymousAllowed="true">
+            <param name="phoneNumber" type="java.lang.String"/>
+        </method>
+        <method name="registerUser" anonymousAllowed="true">
+            <param name="phoneNumber" type="java.lang.String"/>
+            <param name="firstName" type="java.lang.String"/>
+            <param name="otherNames" type="java.lang.String"/>
+            <param name="idNumber" type="java.lang.String"/>
+            <param name="locale" type="java.lang.String"/>
+        </method>
+        <method name="loginUser">
+            <param name="phoneNumber" type="java.lang.String"/>
+            <param name="password" type="java.lang.String"/>
+        </method>
+        <method name="balanceEnquiry">
+            <param name="phoneNumber" type="java.lang.String"/>
+            <param name="associationCode" type="java.lang.String"/>
+        </method>
+        <method name="changePin">
+            <param name="phoneNumber" type="java.lang.String"/>
+            <param name="newPin" type="java.lang.String"/>
+        </method>
+        <method name="changeLanguage">
+            <param name="phoneNumber" type="java.lang.String"/>
+            <param name="newLocale" type="java.lang.String"/>
+        </method>
+    </service>
 </services>
 
