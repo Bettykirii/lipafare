@@ -28,7 +28,7 @@ public class Ussd1ServiceBean implements Ussd1Service {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
 
     final List<RegisterUsers> users = (List<RegisterUsers>) dataManager.load(RegisterUsers.class)
-            .query("select e from lipafare_RegisterUsers e where e.id = :phoneNumber", RegisterUsers.class)
+            .query("select e from lipafare_RegisterUsers e where e.phoneNumber = :phoneNumber", RegisterUsers.class)
             .parameter("phoneNumber", phoneNumber).list();
         if (users.size() > 0)
                 wrapper.setData(users);
@@ -57,8 +57,9 @@ public class Ussd1ServiceBean implements Ussd1Service {
         users.setOtherNames(otherNames);
         users.setIdNumber(idNumber);
         users.setLocale(locale);
-        users.setPin(pin);
         users.setCustomerType(CustomerType.fromId(customerType));
+        users.setPin(pin);
+
 
 
         dataManager.commit(users);
@@ -70,12 +71,19 @@ public class Ussd1ServiceBean implements Ussd1Service {
     public ResponseWrapper loginUser(String phoneNumber, String password) {
 
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
+        wrapper.setMessage("Login success");
 
         CustomerMock customerForPhoneNumber = mockService.getCustomerForPhoneNumber(phoneNumber);
-        if (!customerForPhoneNumber.getPin().equals(password)){
-            wrapper.setCode(401);
-            wrapper.setMessage("Invalid PIN");
+        final List<RegisterUsers> users = ge(phoneNumber);
+        if (users.size()>0) {
+            final RegisterUsers user = users.get(0);
+            if (user.getPin().equalsIgnoreCase(password)) {
+
+                return wrapper;
+            }
         }
+        wrapper.setCode(401);
+        wrapper.setMessage("Invalid PIN");
         return wrapper;
     }
 
