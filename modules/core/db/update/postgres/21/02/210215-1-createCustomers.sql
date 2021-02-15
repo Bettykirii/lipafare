@@ -1,6 +1,5 @@
--- begin LIPAFARE_CUSTOMERS
 create table LIPAFARE_CUSTOMERS (
-    ID varchar(36) not null,
+    ID uuid,
     VERSION integer not null,
     CREATE_TS timestamp,
     CREATED_BY varchar(50),
@@ -18,5 +17,4 @@ create table LIPAFARE_CUSTOMERS (
     LOCALE varchar(255),
     --
     primary key (ID)
-)^
--- end LIPAFARE_CUSTOMERS
+);

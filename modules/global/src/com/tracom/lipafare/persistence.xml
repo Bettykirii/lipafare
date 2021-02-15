@@ -2,6 +2,6 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
     <persistence-unit name="lipafare" transaction-type="RESOURCE_LOCAL">
 
-        <class>com.tracom.lipafare.entity.RegisterUsers</class>
+        <class>com.tracom.lipafare.entity.Customers</class>
     </persistence-unit>
 </persistence>

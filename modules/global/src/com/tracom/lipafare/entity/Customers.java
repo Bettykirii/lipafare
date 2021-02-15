@@ -8,18 +8,18 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-@Table(name = "LIPAFARE_REGISTER_USERS")
-@Entity(name = "lipafare_RegisterUsers")
+@Table(name = "LIPAFARE_CUSTOMERS")
+@Entity(name = "lipafare_Customers")
 @NamePattern("%s|firstName")
-public class RegisterUsers extends StandardEntity {
+public class Customers extends StandardEntity {
     private static final long serialVersionUID = 8938575171497915601L;
 
-    @NotNull
-    @Column(name = "PHONE_NUMBER", nullable = false)
-    private String phoneNumber;
 
     @Column(name = "CUSTOMER_TYPE")
     private String customerType;
+
+    @Column(name = "PHONE_NUMBER")
+    private String phoneNumber;
 
     @Column(name = "PIN")
     private String pin;
@@ -38,6 +38,7 @@ public class RegisterUsers extends StandardEntity {
 
     @Column(name = "LOCALE")
     private String locale;
+
 
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType == null ? null : customerType.getId();
@@ -87,6 +88,14 @@ public class RegisterUsers extends StandardEntity {
         this.firstName = firstName;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public void setCustomerType(String customerType) {
+        this.customerType = customerType;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -94,7 +103,4 @@ public class RegisterUsers extends StandardEntity {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-
-
 }

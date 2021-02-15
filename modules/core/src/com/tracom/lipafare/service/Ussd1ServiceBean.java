@@ -3,15 +3,12 @@ package com.tracom.lipafare.service;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
 import com.tracom.lipafare.entity.CustomerType;
-import com.tracom.lipafare.entity.RegisterUsers;
+import com.tracom.lipafare.entity.Customers;
 import com.tracom.lipafare.models.CustomerMock;
 import com.tracom.lipafare.models.ResponseWrapper;
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service(Ussd1Service.NAME)
@@ -27,23 +24,28 @@ public class Ussd1ServiceBean implements Ussd1Service {
     public ResponseWrapper getRegistrationStatus(String phoneNumber) {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
 
-    final List<RegisterUsers> users = (List<RegisterUsers>) dataManager.load(RegisterUsers.class)
-            .query("select e from lipafare_RegisterUsers e where e.phoneNumber = :phoneNumber", RegisterUsers.class)
-            .parameter("phoneNumber", phoneNumber).list();
-        if (users.size() > 0)
-                wrapper.setData(users);
+        final List<Customers> users = getCustomerByPhoneNumber(phoneNumber);
+        if (users.size() > 0) {
+            wrapper.setData(users);
+        }
         else {
-        RegisterUsers registerUsers = metadata.create(RegisterUsers.class);
-        registerUsers.setLocale("en");
-        registerUsers.setCustomerType(CustomerType.CODEOWNER);
-        registerUsers.setCustomerType(CustomerType.CODEMANAGER);
-        registerUsers.setCustomerType(CustomerType.PASSENGER);
+        Customers passengerUser = metadata.create(Customers.class);
+        passengerUser.setLocale("en");
+        passengerUser.setCustomerType(CustomerType.PASSENGER);
 
-        dataManager.commit(registerUsers);
+        wrapper.setData(passengerUser);
 
     }
         return wrapper;
 }
+
+    private List<Customers> getCustomerByPhoneNumber(String phoneNumber) {
+        final List<Customers> users = dataManager.load(Customers.class)
+                .query("select e from lipafare_Customers e where e.phoneNumber=:phone")
+                .parameter("phone", phoneNumber)
+                .list();
+        return users;
+    }
 
 
     @Override
@@ -51,18 +53,20 @@ public class Ussd1ServiceBean implements Ussd1Service {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
         wrapper.setMessage("Registered successfully");
 
-        final RegisterUsers users = metadata.create(RegisterUsers.class);
-        users.setPhoneNumber(phoneNumber);
-        users.setFirstName(firstName);
-        users.setOtherNames(otherNames);
-        users.setIdNumber(idNumber);
-        users.setLocale(locale);
-        users.setCustomerType(CustomerType.fromId(customerType));
-        users.setPin(pin);
+        final Customers customers = metadata.create(Customers.class);
+        customers.setPhoneNumber(phoneNumber);
+        customers.setFirstName(firstName);
+        customers.setOtherNames(otherNames);
+        customers.setIdNumber(idNumber);
+        customers.setLocale(locale);
+        customers.setCustomerType(CustomerType.fromId(customerType));
+        customers.setPin(pin);
 
 
 
-        dataManager.commit(users);
+        dataManager.commit(customers);
+
+        wrapper.setData(customers);
 
         return wrapper;
     }
@@ -73,12 +77,11 @@ public class Ussd1ServiceBean implements Ussd1Service {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
         wrapper.setMessage("Login success");
 
-        CustomerMock customerForPhoneNumber = mockService.getCustomerForPhoneNumber(phoneNumber);
-        final List<RegisterUsers> users = ge(phoneNumber);
-        if (users.size()>0) {
-            final RegisterUsers user = users.get(0);
-            if (user.getPin().equalsIgnoreCase(password)) {
-
+        final List<Customers> customers = getCustomerByPhoneNumber(phoneNumber);
+        if (customers.size()>0) {
+            final Customers customer = customers.get(0);
+            if (customer.getPin().equalsIgnoreCase(password)) {
+                wrapper.setMessage("Login success");
                 return wrapper;
             }
         }
@@ -86,6 +89,8 @@ public class Ussd1ServiceBean implements Ussd1Service {
         wrapper.setMessage("Invalid PIN");
         return wrapper;
     }
+
+
 
     @Override
     public ResponseWrapper balanceEnquiry(String phoneNumber, String associationCode) {
