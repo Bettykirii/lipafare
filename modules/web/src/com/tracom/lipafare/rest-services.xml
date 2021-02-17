@@ -40,7 +40,7 @@
             <param name="idNumber" type="java.lang.String"/>
             <param name="locale" type="java.lang.String"/>
             <param name="customerType" type="java.lang.String"/>
-            <param name="pin" type="java.lang.String"/>
+
         </method>
         <method name="loginUser">
             <param name="phoneNumber" type="java.lang.String"/>

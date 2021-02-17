@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Random;
 
 @Service(Ussd1Service.NAME)
 public class Ussd1ServiceBean implements Ussd1Service {
@@ -49,7 +50,7 @@ public class Ussd1ServiceBean implements Ussd1Service {
 
 
     @Override
-    public ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale ,String customerType , String pin) {
+    public ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale ,String customerType ) {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
         wrapper.setMessage("Registered successfully");
 
@@ -60,8 +61,10 @@ public class Ussd1ServiceBean implements Ussd1Service {
         customers.setIdNumber(idNumber);
         customers.setLocale(locale);
         customers.setCustomerType(CustomerType.fromId(customerType));
-        customers.setPin(pin);
 
+        Random random = new Random();
+        String pin = String.format("%04d",random.nextInt(1000));
+        customers.setPin(pin);
 
 
         dataManager.commit(customers);
@@ -96,6 +99,7 @@ public class Ussd1ServiceBean implements Ussd1Service {
     public ResponseWrapper balanceEnquiry(String phoneNumber, String associationCode) {
 
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
+
         wrapper.setData("KES.3000");
         return wrapper;
     }
@@ -104,13 +108,36 @@ public class Ussd1ServiceBean implements Ussd1Service {
     public ResponseWrapper changePin(String phoneNumber, String newPin) {
 
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
+        if (newPin.length()!=4){
+            wrapper.setCode(400);
+            wrapper.setMessage("Invalid PIN length");
+            return wrapper;
+        }
+        final Customers customers = getCustomerByPhoneNumber(phoneNumber).get(0);
+        customers.setPin(newPin);
+        dataManager.commit(customers);
+        wrapper.setMessage("PIN Change success");
+        wrapper.setData(newPin);
         return wrapper;
     }
 
+
     @Override
     public ResponseWrapper changeLanguage(String phoneNumber, String newLocale) {
+        final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
+        final List<Customers> customers = getCustomerByPhoneNumber(phoneNumber);
+        if (customers.size() == 0){
+            responseWrapper.setCode(404);
+            responseWrapper.setMessage("Member not found");
+            return responseWrapper;
+        }
+        final Customers customer = customers.get(0);
 
-        ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
-        return wrapper;
+        customer.setLocale(newLocale);
+
+        dataManager.commit(customer);
+
+        return responseWrapper;
+
     }
 }
