@@ -3,5 +3,6 @@
     <persistence-unit name="lipafare" transaction-type="RESOURCE_LOCAL">
 
         <class>com.tracom.lipafare.entity.Customers</class>
+        <class>com.tracom.lipafare.entity.Vehicles</class>
     </persistence-unit>
 </persistence>

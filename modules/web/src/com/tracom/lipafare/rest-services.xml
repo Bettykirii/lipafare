@@ -59,5 +59,15 @@
             <param name="newLocale" type="java.lang.String"/>
         </method>
     </service>
+    <service name="lipafare_VehiclesService">
+        <method name="getVehicles">
+            <param name="phoneNumber" type="java.lang.String"/>
+        </method>
+        <method name="registerVehicle">
+            <param name="phoneNumber" type="java.lang.String"/>
+            <param name="plateNumber" type="java.lang.String"/>
+            </method>
+
+    </service>
 </services>
 

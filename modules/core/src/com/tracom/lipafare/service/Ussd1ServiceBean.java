@@ -50,7 +50,7 @@ public class Ussd1ServiceBean implements Ussd1Service {
 
 
     @Override
-    public ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale ,String customerType ) {
+    public ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale ,String customerType,String pin,String salesAgentCode) {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
         wrapper.setMessage("Registered successfully");
 
@@ -61,11 +61,8 @@ public class Ussd1ServiceBean implements Ussd1Service {
         customers.setIdNumber(idNumber);
         customers.setLocale(locale);
         customers.setCustomerType(CustomerType.fromId(customerType));
-
-        Random random = new Random();
-        String pin = String.format("%04d",random.nextInt(1000));
         customers.setPin(pin);
-
+        customers.setSalesAgentCode(salesAgentCode);
 
         dataManager.commit(customers);
 

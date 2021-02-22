@@ -18,6 +18,9 @@ public class Customers extends StandardEntity {
     @Column(name = "CUSTOMER_TYPE")
     private String customerType;
 
+    @Column(name = "SALES_AGENT_CODE")
+    private String salesAgentCode;
+
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
@@ -38,6 +41,14 @@ public class Customers extends StandardEntity {
 
     @Column(name = "LOCALE")
     private String locale;
+
+    public String getSalesAgentCode() {
+        return salesAgentCode;
+    }
+
+    public void setSalesAgentCode(String salesAgentCode) {
+        this.salesAgentCode = salesAgentCode;
+    }
 
 
     public void setCustomerType(CustomerType customerType) {

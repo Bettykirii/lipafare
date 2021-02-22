@@ -14,6 +14,7 @@
                 <entry key="lipafare_MockService" value="com.tracom.lipafare.service.MockService"/>
                 <entry key="lipafare_UssdService" value="com.tracom.lipafare.service.UssdService"/>
                 <entry key="lipafare_Ussd1Service" value="com.tracom.lipafare.service.Ussd1Service"/>
+                <entry key="lipafare_VehiclesService" value="com.tracom.lipafare.service.VehiclesService"/>
             </map>
         </property>
     </bean>
