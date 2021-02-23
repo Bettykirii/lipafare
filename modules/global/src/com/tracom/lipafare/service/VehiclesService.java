@@ -9,5 +9,5 @@ public interface VehiclesService {
 
     ResponseWrapper registerVehicle(String phoneNumber, String plateNumber);
 
-//    ResponseWrapper removeVehicle()
+    ResponseWrapper removeVehicle(String phoneNumber ,String plateNumber);
 }

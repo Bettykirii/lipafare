@@ -58,6 +58,16 @@
             <param name="phoneNumber" type="java.lang.String"/>
             <param name="newLocale" type="java.lang.String"/>
         </method>
+        <method name="registerUser">
+            <param name="phoneNumber" type="java.lang.String"/>
+            <param name="firstName" type="java.lang.String"/>
+            <param name="otherNames" type="java.lang.String"/>
+            <param name="idNumber" type="java.lang.String"/>
+            <param name="locale" type="java.lang.String"/>
+            <param name="customerType" type="java.lang.String"/>
+            <param name="pin" type="java.lang.String"/>
+            <param name="salesAgentCode" type="java.lang.String"/>
+        </method>
     </service>
     <service name="lipafare_VehiclesService">
         <method name="getVehicles">
@@ -67,6 +77,21 @@
             <param name="phoneNumber" type="java.lang.String"/>
             <param name="plateNumber" type="java.lang.String"/>
             </method>
+
+        <method name="removeVehicle">
+            <param name="plateNumber" type="java.lang.String"/>
+        </method>
+        <method name="removeVehicle">
+            <param name="phoneNumber" type="java.lang.String"/>
+            <param name="plateNumber" type="java.lang.String"/>
+        </method>
+        <method name="getVehicles">
+            <param name="phoneNumber" type="java.lang.String"/>
+            <param name="plateNumber" type="java.lang.String"/>
+        </method>
+        <method name="getVehicles">
+            <param name="phoneNumber" type="java.lang.String"/>
+        </method>
 
     </service>
 </services>

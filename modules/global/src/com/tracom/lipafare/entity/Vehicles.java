@@ -4,24 +4,32 @@ import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Table(name = "LIPAFARE_VEHICLES")
 @Entity(name = "lipafare_Vehicles")
 public class Vehicles extends StandardEntity {
     private static final long serialVersionUID = 6988361464386366088L;
 
+    @Column(name = "PLATE_NUMBER", nullable = false, unique = true)
     @NotNull
-    @Column(name = "PLATE_NUMBER", nullable = false)
     private String plateNumber;
 
 
-    @Column(name = "VEHICLE_CODE")
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="ID")
+    public UUID getId() {
+        return id;
+    }
+
+    @Column(name = "VEHICLE_CODE", nullable = false, unique = true)
+    @NotNull
     private String vehicleCode;
 
     @JoinColumn(name = "VEHICLE_OWNER_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Customers vehicleOwner;
-
 
 
     public void setVehicleOwner(Customers vehicleOwner) {
@@ -50,4 +58,6 @@ public class Vehicles extends StandardEntity {
     public void setPlateNumber(String plateNumber) {
         this.plateNumber = plateNumber;
     }
+
+
 }

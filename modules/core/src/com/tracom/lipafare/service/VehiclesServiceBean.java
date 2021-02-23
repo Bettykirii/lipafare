@@ -26,7 +26,18 @@ public class VehiclesServiceBean implements VehiclesService {
     @Override
     public ResponseWrapper getVehicles(String phoneNumber) {
         final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
-        final List<Vehicles> vehicles = dataManager.load(Vehicles.class).list();
+        //fetch vehicles via phoneNumber
+        List<Customers> customers = getCustomerByPhoneNumber(phoneNumber);
+        final Customers customer = customers.get(0);
+        if(customer.getCustomerType()!= CustomerType.CODEOWNER){
+            responseWrapper.setCode(400);
+            responseWrapper.setMessage("Customer not found");
+            return responseWrapper;
+        }
+
+
+
+
 
         responseWrapper.setData(vehicles);
 
@@ -58,6 +69,35 @@ public class VehiclesServiceBean implements VehiclesService {
 
         return wrapper;
     }
+
+    @Override
+    public ResponseWrapper removeVehicle(String phoneNumber ,String plateNumber) {
+        final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
+
+        //fetch vehicle by plate number
+        final Vehicles vehicles1 = dataManager.load(Vehicles.class)
+                .query("select e from lipafare_Vehicles  e where e.plateNumber = :plate")
+                .parameter("plate", plateNumber)
+                .one();
+        //find customer by phone
+        final Customers customer = getCustomerByPhoneNumber(phoneNumber).get(0);
+
+        //make sure he customer actually owns the vehicle he is removing
+        if (!vehicles1.getVehicleOwner().getId().equals(customer.getId())){
+            //dosent own vehicl, abort
+            responseWrapper.setCode(400);
+            responseWrapper.setMessage("Unknown vehicle Owner");
+            return responseWrapper;
+        }
+
+        dataManager.remove(vehicles1);
+        responseWrapper.setData("Car removed sucessfully");
+
+        return responseWrapper;
+
+
+    }
+
 
 
     private List<Customers> getCustomerByPhoneNumber(String phoneNumber) {
