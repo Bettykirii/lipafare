@@ -10,4 +10,10 @@ public interface VehiclesService {
     ResponseWrapper registerVehicle(String phoneNumber, String plateNumber);
 
     ResponseWrapper removeVehicle(String phoneNumber ,String plateNumber);
+
+    ResponseWrapper transferRoles(String phoneNumber ,String phoneNumber2);
+
+    ResponseWrapper revokeRoles(String phoneNumber);
+
+    ResponseWrapper lipaFare(String vehicleCode ,String amount);
 }

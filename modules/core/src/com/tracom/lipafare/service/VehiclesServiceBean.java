@@ -8,9 +8,11 @@ import com.tracom.lipafare.entity.CustomerType;
 import com.tracom.lipafare.entity.Customers;
 import com.tracom.lipafare.entity.Vehicles;
 import com.tracom.lipafare.models.ResponseWrapper;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service(VehiclesService.NAME)
@@ -22,12 +24,18 @@ public class VehiclesServiceBean implements VehiclesService {
     private DataManager dataManager;
     @Inject
     private UniqueNumbersService uniqueNumbersService;
+    @Inject
+    private Logger log;
 
     @Override
     public ResponseWrapper getVehicles(String phoneNumber) {
         final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
-        //fetch vehicles via phoneNumber
-        List<Customers> customers = getCustomerByPhoneNumber(phoneNumber);
+
+
+        //fetch the customer by phoneNumber
+
+        //make sure the customer actually owns the vehicle
+        final List<Customers> customers = getCustomerByPhoneNumber(phoneNumber);
         final Customers customer = customers.get(0);
         if(customer.getCustomerType()!= CustomerType.CODEOWNER){
             responseWrapper.setCode(400);
@@ -35,13 +43,15 @@ public class VehiclesServiceBean implements VehiclesService {
             return responseWrapper;
         }
 
-
-
-
-
-        responseWrapper.setData(vehicles);
+        Vehicles vehicles=new Vehicles();
+        if(customer.getId().equals(vehicles.getVehicleOwner())){
+            List<Vehicles> vehiclesList= new ArrayList<>();
+            vehiclesList.add(vehicles);
+        }
+        dataManager.load(Vehicles.class);
 
         return responseWrapper;
+
 
     }
 
@@ -84,7 +94,7 @@ public class VehiclesServiceBean implements VehiclesService {
 
         //make sure he customer actually owns the vehicle he is removing
         if (!vehicles1.getVehicleOwner().getId().equals(customer.getId())){
-            //dosent own vehicl, abort
+            //does not own vehicle, abort
             responseWrapper.setCode(400);
             responseWrapper.setMessage("Unknown vehicle Owner");
             return responseWrapper;
@@ -98,6 +108,20 @@ public class VehiclesServiceBean implements VehiclesService {
 
     }
 
+    @Override
+    public ResponseWrapper transferRoles(String phoneNumber, String phoneNumber2) {
+        return null;
+    }
+
+    @Override
+    public ResponseWrapper revokeRoles(String phoneNumber) {
+        return null;
+    }
+
+    @Override
+    public ResponseWrapper lipaFare(String vehicleCode, String amount) {
+        return null;
+    }
 
 
     private List<Customers> getCustomerByPhoneNumber(String phoneNumber) {

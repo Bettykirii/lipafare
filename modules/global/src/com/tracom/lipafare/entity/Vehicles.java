@@ -15,10 +15,14 @@ public class Vehicles extends StandardEntity {
     @NotNull
     private String plateNumber;
 
+    @NotNull
+    @Column(name = "AMOUNT", nullable = false)
+    private String amount;
+
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     public UUID getId() {
         return id;
     }
@@ -30,6 +34,14 @@ public class Vehicles extends StandardEntity {
     @JoinColumn(name = "VEHICLE_OWNER_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Customers vehicleOwner;
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
 
 
     public void setVehicleOwner(Customers vehicleOwner) {

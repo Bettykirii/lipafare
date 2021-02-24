@@ -33,6 +33,7 @@ create table LIPAFARE_VEHICLES (
     DELETED_BY varchar(50),
     --
     PLATE_NUMBER varchar(255) not null,
+    AMOUNT varchar(255) not null,
     VEHICLE_CODE varchar(255) not null,
     VEHICLE_OWNER_ID uuid,
     --
