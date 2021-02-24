@@ -30,30 +30,28 @@ public class VehiclesServiceBean implements VehiclesService {
     @Override
     public ResponseWrapper getVehicles(String phoneNumber) {
         final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
-
-
         //fetch the customer by phoneNumber
 
         //make sure the customer actually owns the vehicle
         final List<Customers> customers = getCustomerByPhoneNumber(phoneNumber);
         final Customers customer = customers.get(0);
-        if(customer.getCustomerType()!= CustomerType.CODEOWNER){
+        if (customer.getCustomerType() != CustomerType.CODEOWNER) {
             responseWrapper.setCode(400);
-            responseWrapper.setMessage("Customer not found");
+            responseWrapper.setMessage("Code Owner not found");
             return responseWrapper;
         }
 
-        Vehicles vehicles=new Vehicles();
-        if(customer.getId().equals(vehicles.getVehicleOwner())){
-            List<Vehicles> vehiclesList= new ArrayList<>();
-            vehiclesList.add(vehicles);
-        }
-        dataManager.load(Vehicles.class);
 
+        final List<Vehicles> list = dataManager.load(Vehicles.class).query("select e  from lipafare_Vehicles e where e.vehicleOwner=:vehicle")
+                .parameter("vehicle", customers.get(0))
+                .list();
+
+        responseWrapper.setData(list);
         return responseWrapper;
-
-
     }
+
+
+
 
 
     @Override

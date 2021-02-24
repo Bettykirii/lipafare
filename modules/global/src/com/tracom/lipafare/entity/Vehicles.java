@@ -15,8 +15,8 @@ public class Vehicles extends StandardEntity {
     @NotNull
     private String plateNumber;
 
-    @NotNull
-    @Column(name = "AMOUNT", nullable = false)
+
+    @Column(name = "AMOUNT")
     private String amount;
 
 
