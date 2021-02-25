@@ -24,12 +24,12 @@ spec:
             - containerPort: 8080
           env:
             - name: CUBA_DATASOURCE_DBNAME
-              value: lipafare-customers
+              value: lipafare_dev
             - name: CUBA_DATASOURCE_HOST
-              value: localhost
+              value: 192.168.1.167
             - name: CUBA_DATASOURCE_PASSWORD
-              value: password
+              value: pass123
             - name: CUBA_DATASOURCE_PORT
               value: "5432"
             - name: CUBA_DATASOURCE_USERNAME
-              value: postgres
+              value: lipafare_dev
