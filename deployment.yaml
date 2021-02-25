@@ -22,3 +22,14 @@ spec:
           image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
           ports:
             - containerPort: 8080
+          env:
+            - name: CUBA_DATASOURCE_DBNAME
+              value: lipafare-customers
+            - name: CUBA_DATASOURCE_HOST
+              value: localhost
+            - name: CUBA_DATASOURCE_PASSWORD
+              value: password
+            - name: CUBA_DATASOURCE_PORT
+              value: "5432"
+            - name: CUBA_DATASOURCE_USERNAME
+              value: postgres
