@@ -16,10 +16,6 @@ public class Vehicles extends StandardEntity {
     private String plateNumber;
 
 
-    @Column(name = "AMOUNT")
-    private String amount;
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -35,13 +31,6 @@ public class Vehicles extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Customers vehicleOwner;
 
-    public String getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
 
 
     public void setVehicleOwner(Customers vehicleOwner) {

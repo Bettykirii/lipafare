@@ -74,9 +74,7 @@
             <param name="phoneNumber" type="java.lang.String"/>
             <param name="plateNumber" type="java.lang.String"/>
         </method>
-        <method name="getVehicles">
-            <param name="phoneNumber" type="java.lang.String"/>
-        </method>
+
         <method name="lipaFare">
             <param name="vehicleCode" type="java.lang.String"/>
             <param name="amount" type="java.lang.String"/>

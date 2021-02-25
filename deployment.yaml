@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lipafare-backend-dev
+  namespace: lipafare
+  labels:
+    app: lipafare-backend-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lipafare-backend-dev
+  template:
+    metadata:
+      labels:
+        app: lipafare-backend-dev
+    spec:
+      imagePullSecrets:
+        - name: pipeline-docker-registry
+      containers:
+        - name: jalipafare-backend-dev
+          image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+          ports:
+            - containerPort: 8080
