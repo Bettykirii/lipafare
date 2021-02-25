@@ -16,5 +16,5 @@ ENV TZ=Africa/Nairobi
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR /lipafare
 USER root
-COPY --from=builder-env /cuba/build/distributions/uberJar/lipafare.jar .
-CMD ["java", "-jar", "lipafare.jar", "-contextName", "app"]
+COPY --from=builder-env /cuba/build/distributions/uberJar/app.jar .
+CMD ["java", "-jar", "app.jar", "-contextName", "app"]
