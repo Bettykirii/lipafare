@@ -11,9 +11,9 @@ public interface VehiclesService {
 
     ResponseWrapper removeVehicle(String phoneNumber ,String plateNumber);
 
-    ResponseWrapper transferRoles(String phoneNumber ,String phoneNumber2);
+    ResponseWrapper transferCode(String phoneNumber ,String vehicleCode);
 
-    ResponseWrapper revokeRoles(String phoneNumber);
+    ResponseWrapper revokeCode(String phoneNumber);
 
     ResponseWrapper lipaFare(String vehicleCode ,String amount);
 }

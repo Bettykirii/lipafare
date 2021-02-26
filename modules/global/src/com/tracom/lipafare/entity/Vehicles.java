@@ -32,7 +32,6 @@ public class Vehicles extends StandardEntity {
     private Customers vehicleOwner;
 
 
-
     public void setVehicleOwner(Customers vehicleOwner) {
         this.vehicleOwner = vehicleOwner;
     }

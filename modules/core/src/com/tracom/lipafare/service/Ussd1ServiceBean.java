@@ -64,6 +64,8 @@ public class Ussd1ServiceBean implements Ussd1Service {
         customers.setPin(pin);
         customers.setSalesAgentCode(salesAgentCode);
 
+
+
         dataManager.commit(customers);
 
         wrapper.setData(customers);

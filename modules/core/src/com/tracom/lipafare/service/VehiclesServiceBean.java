@@ -50,10 +50,6 @@ public class VehiclesServiceBean implements VehiclesService {
         return responseWrapper;
     }
 
-
-
-
-
     @Override
     public ResponseWrapper registerVehicle(String phoneNumber, String plateNumber) {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
@@ -107,12 +103,33 @@ public class VehiclesServiceBean implements VehiclesService {
     }
 
     @Override
-    public ResponseWrapper transferRoles(String phoneNumber, String phoneNumber2) {
-        return null;
+    public ResponseWrapper transferCode(String phoneNumber,String vehicleCode)
+    {
+        final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
+
+        //confirm the person transferring roles is the vehicleOwner
+        final List<Customers> customers = getCustomerByPhoneNumber(phoneNumber);
+        if (customers.size() == 0){
+            responseWrapper.setCode(404);
+            responseWrapper.setMessage("Member not found");
+            return responseWrapper;
+        }
+       //set the new vehicleOwner by transferring the vehicle code
+        final Customers customer = customers.get(0);
+
+        customer.setPhoneNumber(vehicleCode);
+
+        dataManager.commit(customer);
+
+
+
+        return responseWrapper;
+
+
     }
 
     @Override
-    public ResponseWrapper revokeRoles(String phoneNumber) {
+    public ResponseWrapper revokeCode(String phoneNumber) {
         return null;
     }
 

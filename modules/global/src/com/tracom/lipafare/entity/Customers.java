@@ -18,10 +18,12 @@ public class Customers extends StandardEntity {
     @Column(name = "CUSTOMER_TYPE")
     private String customerType;
 
+
     @Column(name = "SALES_AGENT_CODE")
     private String salesAgentCode;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "PHONE_NUMBER", nullable = false, unique = true)
+    @NotNull
     private String phoneNumber;
 
     @Column(name = "PIN")
@@ -36,11 +38,12 @@ public class Customers extends StandardEntity {
     private String otherNames;
 
     @NotNull
-    @Column(name = "ID_NUMBER", nullable = false)
+    @Column(name = "ID_NUMBER", nullable = false, unique = true)
     private String idNumber;
 
     @Column(name = "LOCALE")
     private String locale;
+
 
     public String getSalesAgentCode() {
         return salesAgentCode;
