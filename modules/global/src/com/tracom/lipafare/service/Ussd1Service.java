@@ -12,7 +12,7 @@ public interface Ussd1Service {
     ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale ,String customerType ,String pin ,String salesAgentCode);//SaveCustomers - perfect
     ResponseWrapper loginUser(String phoneNumber, String password);//We use our backend
 
-    ResponseWrapper balanceEnquiry(String phoneNumber, String associationCode);
+    ResponseWrapper balanceEnquiry(String phoneNumber);
     ResponseWrapper changePin(String phoneNumber, String newPin);
 
     ResponseWrapper changeLanguage(String phoneNumber, String newLocale);

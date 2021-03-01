@@ -15,6 +15,16 @@ public class Vehicles extends StandardEntity {
     @NotNull
     private String plateNumber;
 
+    @Column(name = "VEHICLE_CODE", nullable = false, unique = true)
+    @NotNull
+    private String vehicleCode;
+
+    @JoinColumn(name = "VEHICLE_OWNER_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Customers vehicleOwner;
+
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +33,6 @@ public class Vehicles extends StandardEntity {
         return id;
     }
 
-    @Column(name = "VEHICLE_CODE", nullable = false, unique = true)
-    @NotNull
-    private String vehicleCode;
-
-    @JoinColumn(name = "VEHICLE_OWNER_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Customers vehicleOwner;
 
 
     public void setVehicleOwner(Customers vehicleOwner) {

@@ -38,11 +38,22 @@ public class Customers extends StandardEntity {
     private String otherNames;
 
     @NotNull
-    @Column(name = "ID_NUMBER", nullable = false, unique = true)
+    @Column(name = "ID_NUMBER", nullable = false)
     private String idNumber;
+
+    @Column(name = "BALANCE")
+    private String balance;
 
     @Column(name = "LOCALE")
     private String locale;
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
+    }
 
 
     public String getSalesAgentCode() {

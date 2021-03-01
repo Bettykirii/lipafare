@@ -41,7 +41,7 @@ public class VehiclesServiceBean implements VehiclesService {
             return responseWrapper;
         }
 
-
+       //return the vehicles owned by the vehicle owner
         final List<Vehicles> list = dataManager.load(Vehicles.class).query("select e  from lipafare_Vehicles e where e.vehicleOwner=:vehicle")
                 .parameter("vehicle", customers.get(0))
                 .list();
@@ -99,11 +99,10 @@ public class VehiclesServiceBean implements VehiclesService {
 
         return responseWrapper;
 
-
     }
 
     @Override
-    public ResponseWrapper transferCode(String phoneNumber,String vehicleCode)
+    public ResponseWrapper transferRoles(String phoneNumber,String vehicleCode)
     {
         final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
 
@@ -121,16 +120,36 @@ public class VehiclesServiceBean implements VehiclesService {
 
         dataManager.commit(customer);
 
-
-
         return responseWrapper;
-
-
     }
 
     @Override
-    public ResponseWrapper revokeCode(String phoneNumber) {
-        return null;
+    public ResponseWrapper revokeCode(String phoneNumber, String vehicleCode) {
+
+        final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
+
+        //fetch vehicle by vehicleCode
+        final Vehicles vehicles = dataManager.load(Vehicles.class)
+                .query("select e from lipafare_Vehicles  e where e.vehicleCode = :code")
+                .view(  "vehicles-view")
+                .parameter("code", vehicleCode)
+                .one();
+        //find customer by phone
+        final Customers customer = getCustomerByPhoneNumber(phoneNumber).get(0);
+
+        //make sure he customer actually owns the vehicle he is removing
+        if (!vehicles.getVehicleOwner().getId().equals(customer.getId())){
+            //does not own vehicle, abort
+            responseWrapper.setCode(400);
+            responseWrapper.setMessage("Unknown vehicle Owner");
+            return responseWrapper;
+        }
+
+        dataManager.remove(vehicles);
+        responseWrapper.setData("vehicle code removed successfully");
+
+        return responseWrapper;
+
     }
 
     @Override

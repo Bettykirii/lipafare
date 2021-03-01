@@ -95,12 +95,22 @@ public class Ussd1ServiceBean implements Ussd1Service {
 
 
     @Override
-    public ResponseWrapper balanceEnquiry(String phoneNumber, String associationCode) {
+    public ResponseWrapper balanceEnquiry(String phoneNumber ) {
+        ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
 
-        ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
+        //confirm the person transferring roles is the vehicleOwner
+        final List<Customers> customers = getCustomerByPhoneNumber(phoneNumber);
+        if (customers.size() == 0){
+            responseWrapper.setCode(404);
+            responseWrapper.setMessage("Member not found");
+            return responseWrapper;
+        }
 
-        wrapper.setData("KES.3000");
-        return wrapper;
+
+
+
+        responseWrapper.setData("KES.3000");
+        return responseWrapper;
     }
 
     @Override

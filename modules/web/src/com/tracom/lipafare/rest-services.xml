@@ -38,10 +38,7 @@
             <param name="phoneNumber" type="java.lang.String"/>
             <param name="password" type="java.lang.String"/>
         </method>
-        <method name="balanceEnquiry">
-            <param name="phoneNumber" type="java.lang.String"/>
-            <param name="associationCode" type="java.lang.String"/>
-        </method>
+
         <method name="changePin">
             <param name="phoneNumber" type="java.lang.String"/>
             <param name="newPin" type="java.lang.String"/>
@@ -61,6 +58,9 @@
             <param name="customerType" type="java.lang.String"/>
             <param name="pin" type="java.lang.String"/>
             <param name="salesAgentCode" type="java.lang.String"/>
+        </method>
+        <method name="balanceEnquiry">
+            <param name="phoneNumber" type="java.lang.String"/>
         </method>
     </service>
     <service name="lipafare_VehiclesService">
@@ -83,13 +83,13 @@
             <param name="phoneNumber" type="java.lang.String"/>
         </method>
 
-
-        <method name="transferCode">
+        <method name="transferRoles">
             <param name="phoneNumber" type="java.lang.String"/>
-            <param name="phoneNumber2" type="java.lang.String"/>
+            <param name="vehicleCode" type="java.lang.String"/>
         </method>
         <method name="revokeCode">
             <param name="phoneNumber" type="java.lang.String"/>
+            <param name="vehicleCode" type="java.lang.String"/>
         </method>
 
     </service>
