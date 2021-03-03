@@ -11,19 +11,9 @@ import java.util.UUID;
 public class Vehicles extends StandardEntity {
     private static final long serialVersionUID = 6988361464386366088L;
 
-    @Column(name = "PLATE_NUMBER", nullable = false, unique = true)
+    @Column(name = "PLATE_NUMBER", unique = true)
     @NotNull
     private String plateNumber;
-
-    @Column(name = "VEHICLE_CODE", nullable = false, unique = true)
-    @NotNull
-    private String vehicleCode;
-
-    @JoinColumn(name = "VEHICLE_OWNER_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Customers vehicleOwner;
-
-
 
 
     @Id
@@ -33,6 +23,21 @@ public class Vehicles extends StandardEntity {
         return id;
     }
 
+    @Column(name = "VEHICLE_CODE", nullable = false, unique = true)
+    @NotNull
+    private String vehicleCode;
+
+    @JoinColumn(name = "VEHICLE_OWNER_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Customers vehicleOwner;
+
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
+    }
+
+    public String getPlateNumber() {
+        return plateNumber;
+    }
 
 
     public void setVehicleOwner(Customers vehicleOwner) {
@@ -50,16 +55,6 @@ public class Vehicles extends StandardEntity {
 
     public void setVehicleCode(String vehicleCode) {
         this.vehicleCode = vehicleCode;
-    }
-
-
-
-    public String getPlateNumber() {
-        return plateNumber;
-    }
-
-    public void setPlateNumber(String plateNumber) {
-        this.plateNumber = plateNumber;
     }
 
 

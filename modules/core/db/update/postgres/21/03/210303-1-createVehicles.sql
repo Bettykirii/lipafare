@@ -8,7 +8,7 @@ create table LIPAFARE_VEHICLES (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    PLATE_NUMBER varchar(255) not null,
+    PLATE_NUMBER varchar(255),
     VEHICLE_CODE varchar(255) not null,
     VEHICLE_OWNER_ID uuid,
     --

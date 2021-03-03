@@ -4,11 +4,14 @@ import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
 import com.tracom.lipafare.entity.CustomerType;
 import com.tracom.lipafare.entity.Customers;
+import com.tracom.lipafare.entity.VehicleRoles;
+import com.tracom.lipafare.entity.Vehicles;
 import com.tracom.lipafare.models.CustomerMock;
 import com.tracom.lipafare.models.ResponseWrapper;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -50,9 +53,10 @@ public class Ussd1ServiceBean implements Ussd1Service {
 
 
     @Override
-    public ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale ,String customerType,String pin,String salesAgentCode) {
+    public ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale ,String customerType,String pin,String salesAgentCode, String customerRoles,String plateNumber) {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
         wrapper.setMessage("Registered successfully");
+
 
         final Customers customers = metadata.create(Customers.class);
         customers.setPhoneNumber(phoneNumber);
@@ -63,6 +67,9 @@ public class Ussd1ServiceBean implements Ussd1Service {
         customers.setCustomerType(CustomerType.fromId(customerType));
         customers.setPin(pin);
         customers.setSalesAgentCode(salesAgentCode);
+        customers.setCustomerRoles(VehicleRoles.fromId(customerRoles));
+//        customers.setPlateNumber();
+
 
 
 
@@ -108,7 +115,7 @@ public class Ussd1ServiceBean implements Ussd1Service {
 
 
 
-
+        responseWrapper.setMessage("Your balance enquiry is sucessfull" );
         responseWrapper.setData("KES.3000");
         return responseWrapper;
     }
@@ -128,6 +135,23 @@ public class Ussd1ServiceBean implements Ussd1Service {
         wrapper.setMessage("PIN Change success");
         wrapper.setData(newPin);
         return wrapper;
+    }
+
+    @Override
+    public ResponseWrapper withdraw(String phoneNumber, String amount) {
+
+        final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
+        final List<Customers> customers = getCustomerByPhoneNumber(phoneNumber);
+        if (customers.size() == 0){
+            responseWrapper.setCode(404);
+            responseWrapper.setMessage("Member not found");
+            return responseWrapper;
+        }
+        responseWrapper.setMessage("Money transferred sucessfully ");
+        return responseWrapper;
+
+
+
     }
 
 

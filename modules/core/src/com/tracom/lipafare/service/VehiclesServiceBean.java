@@ -27,6 +27,7 @@ public class VehiclesServiceBean implements VehiclesService {
     @Inject
     private Logger log;
 
+
     @Override
     public ResponseWrapper getVehicles(String phoneNumber) {
         final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
@@ -41,7 +42,7 @@ public class VehiclesServiceBean implements VehiclesService {
             return responseWrapper;
         }
 
-       //return the vehicles owned by the vehicle owner
+
         final List<Vehicles> list = dataManager.load(Vehicles.class).query("select e  from lipafare_Vehicles e where e.vehicleOwner=:vehicle")
                 .parameter("vehicle", customers.get(0))
                 .list();
@@ -81,6 +82,7 @@ public class VehiclesServiceBean implements VehiclesService {
         //fetch vehicle by plate number
         final Vehicles vehicles1 = dataManager.load(Vehicles.class)
                 .query("select e from lipafare_Vehicles  e where e.plateNumber = :plate")
+                .view(  "vehicles-view")
                 .parameter("plate", plateNumber)
                 .one();
         //find customer by phone
@@ -95,7 +97,7 @@ public class VehiclesServiceBean implements VehiclesService {
         }
 
         dataManager.remove(vehicles1);
-        responseWrapper.setData("Car removed sucessfully");
+        responseWrapper.setData("Car removed successfully");
 
         return responseWrapper;
 
@@ -128,24 +130,7 @@ public class VehiclesServiceBean implements VehiclesService {
 
         final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
 
-        //fetch vehicle by vehicleCode
-        final Vehicles vehicles = dataManager.load(Vehicles.class)
-                .query("select e from lipafare_Vehicles  e where e.vehicleCode = :code")
-                .view(  "vehicles-view")
-                .parameter("code", vehicleCode)
-                .one();
-        //find customer by phone
-        final Customers customer = getCustomerByPhoneNumber(phoneNumber).get(0);
 
-        //make sure he customer actually owns the vehicle he is removing
-        if (!vehicles.getVehicleOwner().getId().equals(customer.getId())){
-            //does not own vehicle, abort
-            responseWrapper.setCode(400);
-            responseWrapper.setMessage("Unknown vehicle Owner");
-            return responseWrapper;
-        }
-
-        dataManager.remove(vehicles);
         responseWrapper.setData("vehicle code removed successfully");
 
         return responseWrapper;
@@ -154,6 +139,11 @@ public class VehiclesServiceBean implements VehiclesService {
 
     @Override
     public ResponseWrapper lipaFare(String vehicleCode, String amount) {
+        return null;
+    }
+
+    @Override
+    public ResponseWrapper verifyPayment() {
         return null;
     }
 

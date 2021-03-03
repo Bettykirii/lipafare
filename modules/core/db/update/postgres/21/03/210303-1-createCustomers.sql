@@ -10,7 +10,7 @@ create table LIPAFARE_CUSTOMERS (
     --
     CUSTOMER_TYPE varchar(50),
     SALES_AGENT_CODE varchar(255),
-    PHONE_NUMBER varchar(255) not null,
+    PHONE_NUMBER varchar(255),
     PIN varchar(255),
     FIRST_NAME varchar(255) not null,
     OTHER_NAMES varchar(255) not null,

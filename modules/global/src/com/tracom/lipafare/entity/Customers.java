@@ -5,8 +5,10 @@ import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Table(name = "LIPAFARE_CUSTOMERS")
 @Entity(name = "lipafare_Customers")
@@ -18,12 +20,16 @@ public class Customers extends StandardEntity {
     @Column(name = "CUSTOMER_TYPE")
     private String customerType;
 
+    @Column(name = "CUSTOMER_ROLES")
+    private String customerRoles;
+
+    @OneToMany(mappedBy = "vehicleOwner")
+    private List<Vehicles> plateNumber;
 
     @Column(name = "SALES_AGENT_CODE")
     private String salesAgentCode;
 
-    @Column(name = "PHONE_NUMBER", nullable = false, unique = true)
-    @NotNull
+    @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
     @Column(name = "PIN")
@@ -41,20 +47,24 @@ public class Customers extends StandardEntity {
     @Column(name = "ID_NUMBER", nullable = false)
     private String idNumber;
 
-    @Column(name = "BALANCE")
-    private String balance;
-
     @Column(name = "LOCALE")
     private String locale;
 
-    public String getBalance() {
-        return balance;
+    public List<Vehicles> getPlateNumber() {
+        return plateNumber;
     }
 
-    public void setBalance(String balance) {
-        this.balance = balance;
+    public void setPlateNumber(List<Vehicles> plateNumber) {
+        this.plateNumber = plateNumber;
     }
 
+    public VehicleRoles getCustomerRoles() {
+        return customerRoles == null ? null : VehicleRoles.fromId(customerRoles);
+    }
+
+    public void setCustomerRoles(VehicleRoles customerRoles) {
+        this.customerRoles = customerRoles == null ? null : customerRoles.getId();
+    }
 
     public String getSalesAgentCode() {
         return salesAgentCode;
