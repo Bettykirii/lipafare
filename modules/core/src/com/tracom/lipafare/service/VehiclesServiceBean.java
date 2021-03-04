@@ -127,8 +127,12 @@ public class VehiclesServiceBean implements VehiclesService {
 
     @Override
     public ResponseWrapper revokeCode(String phoneNumber, String vehicleCode) {
-
         final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
+
+        //check for the person revoking code
+
+
+        //the vehicle code being revoked and it's association to the roles of the User
 
 
         responseWrapper.setData("vehicle code removed successfully");
