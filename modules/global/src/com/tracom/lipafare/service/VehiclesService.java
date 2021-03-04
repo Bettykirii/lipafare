@@ -15,7 +15,7 @@ public interface VehiclesService {
 
     ResponseWrapper revokeCode(String phoneNumber ,String vehicleCode ,String role);
 
-    ResponseWrapper lipaFare(String vehicleCode ,String amount);
+    ResponseWrapper lipaFare(String vehicleCode, String amount);
 
-    ResponseWrapper verifyPayment();
+    ResponseWrapper verifyPayment(String phoneNumber);
 }

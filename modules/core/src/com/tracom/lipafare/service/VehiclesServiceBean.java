@@ -142,6 +142,7 @@ public class VehiclesServiceBean implements VehiclesService {
         //the vehicle code being revoked and it's association to the roles of the User
 
 
+
         responseWrapper.setData("vehicle code removed successfully");
 
         return responseWrapper;
@@ -150,14 +151,45 @@ public class VehiclesServiceBean implements VehiclesService {
 
     @Override
     public ResponseWrapper lipaFare(String vehicleCode, String amount) {
-        return null;
+        final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
+        final List<Vehicles> vehiclecode = getVehicleByCode(vehicleCode);
+        if (vehiclecode.size() == 0){
+            responseWrapper.setCode(404);
+            responseWrapper.setMessage("Vehicle code not found");
+            return responseWrapper;
+        }
+
+
+
+
+
+       responseWrapper.setMessage("Payment successful, you will receive a confirmation message from mpesa ");
+        responseWrapper.setData("");
+        return responseWrapper;
     }
+
+
+
 
     @Override
-    public ResponseWrapper verifyPayment() {
+    public ResponseWrapper verifyPayment(String vehicleCode) {
+        final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
+
+
+
+
+
+
+
+
         return null;
     }
-
+    private List<Vehicles> getVehicleByCode(String vehicleCode) {
+        return dataManager.load(Vehicles.class)
+                .query("select e from lipafare_Vehicles e where e.vehicleCode = :code")
+                .parameter("code", vehicleCode)
+                .list();
+    }
 
     private List<Customers> getCustomerByPhoneNumber(String phoneNumber) {
         final List<Customers> users = dataManager.load(Customers.class)
