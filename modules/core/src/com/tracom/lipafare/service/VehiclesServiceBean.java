@@ -126,10 +126,17 @@ public class VehiclesServiceBean implements VehiclesService {
     }
 
     @Override
-    public ResponseWrapper revokeCode(String phoneNumber, String vehicleCode) {
+    public ResponseWrapper revokeCode(String phoneNumber, String vehicleCode ,String role) {
         final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
 
         //check for the person revoking code
+        final List<Customers> customers = getCustomerByPhoneNumber(phoneNumber);
+        if (customers.size() == 0){
+            responseWrapper.setCode(404);
+            responseWrapper.setMessage("Member not found");
+            return responseWrapper;
+        }
+
 
 
         //the vehicle code being revoked and it's association to the roles of the User

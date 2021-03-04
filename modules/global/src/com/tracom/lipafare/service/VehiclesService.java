@@ -13,7 +13,7 @@ public interface VehiclesService {
 
     ResponseWrapper transferRoles(String phoneNumber ,String vehicleCode);
 
-    ResponseWrapper revokeCode(String phoneNumber ,String vehicleCode);
+    ResponseWrapper revokeCode(String phoneNumber ,String vehicleCode ,String role);
 
     ResponseWrapper lipaFare(String vehicleCode ,String amount);
 

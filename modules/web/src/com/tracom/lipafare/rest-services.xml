@@ -95,9 +95,11 @@
             <param name="phoneNumber" type="java.lang.String"/>
             <param name="vehicleCode" type="java.lang.String"/>
         </method>
+
         <method name="revokeCode">
             <param name="phoneNumber" type="java.lang.String"/>
             <param name="vehicleCode" type="java.lang.String"/>
+            <param name="role" type="java.lang.String"/>
         </method>
 
     </service>
