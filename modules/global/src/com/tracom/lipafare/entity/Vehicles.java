@@ -23,7 +23,7 @@ public class Vehicles extends StandardEntity {
         return id;
     }
 
-    @Column(name = "VEHICLE_CODE", nullable = false, unique = true)
+    @Column(name = "VEHICLE_CODE",  unique = true)
     @NotNull
     private String vehicleCode;
 

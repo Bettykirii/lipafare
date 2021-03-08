@@ -96,6 +96,7 @@ public class VehiclesServiceBean implements VehiclesService {
             return responseWrapper;
         }
 
+
         dataManager.remove(vehicles1);
         responseWrapper.setData("Car removed successfully");
 
@@ -143,6 +144,8 @@ public class VehiclesServiceBean implements VehiclesService {
 
 
 
+
+
         responseWrapper.setData("vehicle code removed successfully");
 
         return responseWrapper;
@@ -158,6 +161,8 @@ public class VehiclesServiceBean implements VehiclesService {
             responseWrapper.setMessage("Vehicle code not found");
             return responseWrapper;
         }
+
+//        vehiclecode.
 
 
 

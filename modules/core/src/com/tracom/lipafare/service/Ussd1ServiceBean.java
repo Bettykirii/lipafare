@@ -53,12 +53,13 @@ public class Ussd1ServiceBean implements Ussd1Service {
 
 
     @Override
-    public ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale ,String customerType,String pin,String salesAgentCode, String customerRoles) {
+    public ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale ,String customerType,String pin,String salesAgentCode, String customerRoles, String plateNumbers) {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
         wrapper.setMessage("Registered successfully");
 
 
         final Customers customers = metadata.create(Customers.class);
+        final  Vehicles vehicles = metadata.create(Vehicles.class);
         customers.setPhoneNumber(phoneNumber);
         customers.setFirstName(firstName);
         customers.setOtherNames(otherNames);
@@ -68,12 +69,15 @@ public class Ussd1ServiceBean implements Ussd1Service {
         customers.setPin(pin);
         customers.setSalesAgentCode(salesAgentCode);
         customers.setCustomerRoles(VehicleRoles.fromId(customerRoles));
-//        customers.setPlateNumber();
-
-
-
-
+        customers.setPlateNumbers(plateNumbers);
         dataManager.commit(customers);
+
+        vehicles.setVehicleOwner(customers);
+        vehicles.setPlateNumber(plateNumbers);
+        dataManager.commit(vehicles);
+
+
+
 
         wrapper.setData(customers);
 

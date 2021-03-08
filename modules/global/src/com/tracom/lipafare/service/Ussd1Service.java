@@ -12,7 +12,7 @@ public interface Ussd1Service {
 
     ResponseWrapper getRegistrationStatus(String phoneNumber);//after call
 
-    ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale , String customerType , String pin , String salesAgentCode ,String customerRoles );//SaveCustomers - perfect
+    ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale , String customerType , String pin , String salesAgentCode ,String customerRoles, String plateNumbers );//SaveCustomers - perfect
     ResponseWrapper loginUser(String phoneNumber, String password);//We use our backend
 
     ResponseWrapper balanceEnquiry(String phoneNumber);
