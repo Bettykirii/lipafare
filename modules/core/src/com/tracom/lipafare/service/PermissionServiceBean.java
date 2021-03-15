@@ -2,10 +2,7 @@ package com.tracom.lipafare.service;
 
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
-import com.tracom.lipafare.entity.Customers;
-import com.tracom.lipafare.entity.VehiclePermissionRegister;
-import com.tracom.lipafare.entity.VehicleRoles;
-import com.tracom.lipafare.entity.Vehicles;
+import com.tracom.lipafare.entity.*;
 import com.tracom.lipafare.models.ResponseWrapper;
 import org.springframework.stereotype.Service;
 
@@ -45,12 +42,15 @@ public class PermissionServiceBean implements PermissionService {
     @Override
     public void transferPermissions(Customers fromCustomer, Customers toCustomer, VehicleRoles roles, Vehicles vehicles) {
 
+        final VehicleRoles vehicleroles = VehicleRoles.fromId(roles);
 
         //search permission in the permission table
-        if()
+
+        if(vehicleroles == roles.)
 
 
         //transfer that the new guy
+
 
         //delete the initial permission
 
