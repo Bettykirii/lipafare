@@ -1,5 +1,6 @@
 package com.tracom.lipafare.service;
 
+import com.haulmont.cuba.core.app.UniqueNumbersAPI;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
 import com.tracom.lipafare.entity.CustomerType;
@@ -23,6 +24,10 @@ public class Ussd1ServiceBean implements Ussd1Service {
     private DataManager dataManager;
     @Inject
     private Metadata metadata;
+    @Inject
+    private UniqueNumbersAPI uniqueNumbersAPI;
+    @Inject
+    private PermissionService permissionService;
 
     @Override
     public ResponseWrapper getRegistrationStatus(String phoneNumber) {
@@ -57,28 +62,31 @@ public class Ussd1ServiceBean implements Ussd1Service {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
         wrapper.setMessage("Registered successfully");
 
+        final CustomerType custType = CustomerType.fromId(customerType);
 
         final Customers customers = metadata.create(Customers.class);
-        final  Vehicles vehicles = metadata.create(Vehicles.class);
+
         customers.setPhoneNumber(phoneNumber);
         customers.setFirstName(firstName);
         customers.setOtherNames(otherNames);
         customers.setIdNumber(idNumber);
         customers.setLocale(locale);
-        customers.setCustomerType(CustomerType.fromId(customerType));
+        customers.setCustomerType(custType);
         customers.setPin(pin);
         customers.setSalesAgentCode(salesAgentCode);
         customers.setCustomerRoles(VehicleRoles.fromId(customerRoles));
-        customers.setPlateNumbers(plateNumbers);
         dataManager.commit(customers);
 
-        vehicles.setVehicleOwner(customers);
-        vehicles.setPlateNumber(plateNumbers);
-        dataManager.commit(vehicles);
+        if(custType == CustomerType.CODEOWNER){
+            final  Vehicles vehicles = metadata.create(Vehicles.class);
+            vehicles.setVehicleOwner(customers);
+            vehicles.setPlateNumber(plateNumbers);
+            final long vehicleCode = uniqueNumbersAPI.getNextNumber(Vehicles.class.getSimpleName());
 
+            dataManager.commit(vehicles);
 
-
-
+            permissionService.registerInitialPermissions(customers, vehicles);
+        }
         wrapper.setData(customers);
 
         return wrapper;
@@ -116,7 +124,6 @@ public class Ussd1ServiceBean implements Ussd1Service {
             responseWrapper.setMessage("Member not found");
             return responseWrapper;
         }
-
 
 
         responseWrapper.setMessage("Your balance enquiry is sucessfull" );

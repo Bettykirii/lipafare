@@ -26,6 +26,8 @@ public class VehiclesServiceBean implements VehiclesService {
     private UniqueNumbersService uniqueNumbersService;
     @Inject
     private Logger log;
+    @Inject
+    private PermissionService permissionService;
 
 
     @Override
@@ -117,11 +119,6 @@ public class VehiclesServiceBean implements VehiclesService {
             return responseWrapper;
         }
        //set the new vehicleOwner by transferring the vehicle code
-        final Customers customer = customers.get(0);
-
-        customer.setPhoneNumber(vehicleCode);
-
-        dataManager.commit(customer);
 
         return responseWrapper;
     }
