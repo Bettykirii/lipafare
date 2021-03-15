@@ -45,6 +45,16 @@ public class PermissionServiceBean implements PermissionService {
     @Override
     public void transferPermissions(Customers fromCustomer, Customers toCustomer, VehicleRoles roles, Vehicles vehicles) {
 
+
+        //search permission in the permission table
+        if()
+
+
+        //transfer that the new guy
+
+        //delete the initial permission
+
+
         final VehiclePermissionRegister transfer = metadata.create(VehiclePermissionRegister.class);
         //the customer from whom permissions are from to the next customer
         transfer.setCustomer(fromCustomer);
