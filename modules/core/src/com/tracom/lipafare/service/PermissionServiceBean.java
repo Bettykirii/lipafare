@@ -50,8 +50,9 @@ public class PermissionServiceBean implements PermissionService {
         transfer.setCustomer(fromCustomer);
         transfer.setCustomer(toCustomer);
 
-        //the roles and vehicles being set
+        //the roles and vehicles being set to the customer
         final VehicleRoles vehicleroles = metadata.create(VehicleRoles.class);
+
 
 
 

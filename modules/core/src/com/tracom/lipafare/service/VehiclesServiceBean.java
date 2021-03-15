@@ -6,6 +6,7 @@ import com.haulmont.cuba.core.global.Metadata;
 
 import com.tracom.lipafare.entity.CustomerType;
 import com.tracom.lipafare.entity.Customers;
+import com.tracom.lipafare.entity.VehicleRoles;
 import com.tracom.lipafare.entity.Vehicles;
 import com.tracom.lipafare.models.ResponseWrapper;
 import org.slf4j.Logger;
@@ -119,6 +120,8 @@ public class VehiclesServiceBean implements VehiclesService {
             return responseWrapper;
         }
        //set the new vehicleOwner by transferring the vehicle code
+        permissionService.transferPermissions;
+
 
         return responseWrapper;
     }
