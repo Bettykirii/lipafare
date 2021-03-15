@@ -74,6 +74,7 @@
             <param name="customerRoles" type="java.lang.String"/>
             <param name="plateNumbers" type="java.lang.String"/>
         </method>
+
     </service>
     <service name="lipafare_VehiclesService">
 

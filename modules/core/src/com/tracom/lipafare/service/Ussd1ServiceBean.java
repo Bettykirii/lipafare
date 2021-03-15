@@ -1,6 +1,7 @@
 package com.tracom.lipafare.service;
 
 import com.haulmont.cuba.core.app.UniqueNumbersAPI;
+import com.haulmont.cuba.core.app.UniqueNumbersService;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
 import com.tracom.lipafare.entity.CustomerType;
@@ -28,6 +29,8 @@ public class Ussd1ServiceBean implements Ussd1Service {
     private UniqueNumbersAPI uniqueNumbersAPI;
     @Inject
     private PermissionService permissionService;
+    @Inject
+    private UniqueNumbersService uniqueNumbersService;
 
     @Override
     public ResponseWrapper getRegistrationStatus(String phoneNumber) {
@@ -81,7 +84,8 @@ public class Ussd1ServiceBean implements Ussd1Service {
             final  Vehicles vehicles = metadata.create(Vehicles.class);
             vehicles.setVehicleOwner(customers);
             vehicles.setPlateNumber(plateNumbers);
-            final long vehicleCode = uniqueNumbersAPI.getNextNumber(Vehicles.class.getSimpleName());
+
+            vehicles.setVehicleCode(String.valueOf(uniqueNumbersService.getNextNumber("VehicleCode")));
 
             dataManager.commit(vehicles);
 
