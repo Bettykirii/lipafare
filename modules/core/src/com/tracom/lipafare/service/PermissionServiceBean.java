@@ -43,34 +43,23 @@ public class PermissionServiceBean implements PermissionService {
 
     @Override
     public void transferPermissions(Customers fromCustomer, Customers toCustomer, VehicleRoles roles, Vehicles vehicles) {
-        dataManager.load(Customers.class)
-        .id(fromCustomer.getId())
-        .view("customers-view-minimal");
+//        dataManager.load(Customers.class)
+//        .id(fromCustomer.getId())
+//        .view("customers-view-minimal");
 
 
         //search permission in the permission table
-        //get the permissions
-        //if permission doesn't exist tho the error
-
-
-
-
 
         //transfer that the new guy
+        // delete the initial permission
 
-
-
-
-        //delete the initial permission
-
-
-        final VehiclePermissionRegister transfer = metadata.create(VehiclePermissionRegister.class);
-        //the customer from whom permissions are from to the next customer
-        transfer.setCustomer(fromCustomer);
-        transfer.setCustomer(toCustomer);
-
-        //the roles and vehicles being set to the customer
-
+    }
+    private List<VehiclePermissionRegister> getPermissions(String permission) {
+        final List<VehiclePermissionRegister> permissions = dataManager.load(VehiclePermissionRegister.class)
+                .query("select e from lipafare_VehiclePermissionRegister e where e.permission=:permission")
+                .parameter("permission", permission)
+                .list();
+        return permissions;
     }
 
     @Override
