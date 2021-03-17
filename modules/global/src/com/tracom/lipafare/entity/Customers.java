@@ -23,9 +23,6 @@ public class Customers extends StandardEntity {
     @OneToMany(mappedBy = "vehicleOwner")
     private List<Vehicles> plateNumber;
 
-    @Transient
-    private String plateNumbers;
-
     @Column(name = "SALES_AGENT_CODE")
     private String salesAgentCode;
 
@@ -49,6 +46,9 @@ public class Customers extends StandardEntity {
 
     @Column(name = "LOCALE")
     private String locale;
+
+    @Transient
+    private String plateNumbers;
 
     public String getPlateNumbers() {
         return plateNumbers;

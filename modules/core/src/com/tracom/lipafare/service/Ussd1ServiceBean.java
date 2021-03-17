@@ -61,7 +61,7 @@ public class Ussd1ServiceBean implements Ussd1Service {
 
 
     @Override
-    public ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale ,String customerType,String pin,String salesAgentCode, String customerRoles, String plateNumbers) {
+    public ResponseWrapper registerUser(String phoneNumber, String firstName, String otherNames, String idNumber, String locale ,String customerType,String pin,String salesAgentCode, String plateNumbers) {
         ResponseWrapper<Object> wrapper = new ResponseWrapper<>();
         wrapper.setMessage("Registered successfully");
 
@@ -77,7 +77,7 @@ public class Ussd1ServiceBean implements Ussd1Service {
         customers.setCustomerType(custType);
         customers.setPin(pin);
         customers.setSalesAgentCode(salesAgentCode);
-        customers.setCustomerRoles(VehicleRoles.fromId(customerRoles));
+//        customers.setCustomerRoles(VehicleRoles.fromId(customerRoles));
         dataManager.commit(customers);
 
         if(custType == CustomerType.CODEOWNER){
@@ -173,6 +173,7 @@ public class Ussd1ServiceBean implements Ussd1Service {
     @Override
     public ResponseWrapper changeLanguage(String phoneNumber, String newLocale) {
         final ResponseWrapper<Object> responseWrapper = new ResponseWrapper<>();
+
         final List<Customers> customers = getCustomerByPhoneNumber(phoneNumber);
         if (customers.size() == 0){
             responseWrapper.setCode(404);

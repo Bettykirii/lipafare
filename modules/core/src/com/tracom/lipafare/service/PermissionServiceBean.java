@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
+import java.util.List;
+
 @Service(PermissionService.NAME)
 public class PermissionServiceBean implements PermissionService {
 
@@ -41,15 +43,22 @@ public class PermissionServiceBean implements PermissionService {
 
     @Override
     public void transferPermissions(Customers fromCustomer, Customers toCustomer, VehicleRoles roles, Vehicles vehicles) {
+        dataManager.load(Customers.class)
+        .id(fromCustomer.getId())
+        .view("customers-view-minimal");
 
-        final VehicleRoles vehicleroles = VehicleRoles.fromId(roles);
 
         //search permission in the permission table
+        //get the permissions
+        //if permission doesn't exist tho the error
 
-        if(vehicleroles == roles.)
+
+
 
 
         //transfer that the new guy
+
+
 
 
         //delete the initial permission
@@ -61,14 +70,6 @@ public class PermissionServiceBean implements PermissionService {
         transfer.setCustomer(toCustomer);
 
         //the roles and vehicles being set to the customer
-        final VehicleRoles vehicleroles = metadata.create(VehicleRoles.class);
-
-
-
-
-
-
-
 
     }
 

@@ -120,7 +120,7 @@ public class VehiclesServiceBean implements VehiclesService {
             return responseWrapper;
         }
        //set the new vehicleOwner by transferring the vehicle code
-        permissionService.transferPermissions;
+
 
 
         return responseWrapper;

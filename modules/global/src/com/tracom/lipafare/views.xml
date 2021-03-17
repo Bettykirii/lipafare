@@ -5,4 +5,7 @@
     <view entity="lipafare_Vehicles" name="vehicles-view" extends="_local">
         <property name="vehicleOwner" view="_minimal"/>
     </view>
+    <view entity="lipafare_Customers" name="customers-view-minimal" extends="_minimal">
+        <property name="customerRoles"/>
+    </view>
 </views>

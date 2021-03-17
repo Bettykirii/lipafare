@@ -74,6 +74,17 @@
             <param name="customerRoles" type="java.lang.String"/>
             <param name="plateNumbers" type="java.lang.String"/>
         </method>
+        <method name="registerUser">
+            <param name="phoneNumber" type="java.lang.String"/>
+            <param name="firstName" type="java.lang.String"/>
+            <param name="otherNames" type="java.lang.String"/>
+            <param name="idNumber" type="java.lang.String"/>
+            <param name="locale" type="java.lang.String"/>
+            <param name="customerType" type="java.lang.String"/>
+            <param name="pin" type="java.lang.String"/>
+            <param name="salesAgentCode" type="java.lang.String"/>
+            <param name="plateNumbers" type="java.lang.String"/>
+        </method>
 
     </service>
     <service name="lipafare_VehiclesService">
