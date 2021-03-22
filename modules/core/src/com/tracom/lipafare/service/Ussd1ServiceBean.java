@@ -6,16 +6,14 @@ import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
 import com.tracom.lipafare.entity.CustomerType;
 import com.tracom.lipafare.entity.Customers;
-import com.tracom.lipafare.entity.VehicleRoles;
 import com.tracom.lipafare.entity.Vehicles;
-import com.tracom.lipafare.models.CustomerMock;
+
 import com.tracom.lipafare.models.ResponseWrapper;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+
 
 @Service(Ussd1Service.NAME)
 public class Ussd1ServiceBean implements Ussd1Service {
